@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#./prompt.sh "Shutdown" "shutdown"
+
+[ $(echo -e "No\nYes" | dmenu -i -nf '#999999' -nb '#1A1D23' -sf '#1A1D23' -sb '#FFFFFF' -fn 'System San Fransisco Display-13' -p "$1") \
+= "Yes" ] && $2
