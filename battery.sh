@@ -1,12 +1,20 @@
-#!/bin/bash
-char=$(acpi | awk 'NR==1{print $3}' | rev | cut -c 2- | rev)
-lefc=$(acpi | awk 'NR==1{print $5}' | rev | cut -c 7- | rev)
+#!/usr/bin/bash
 
-left=$(acpi | awk 'NR==1{print $5}' | rev | cut -c 4- | rev)
-batt=$(acpi | awk 'NR==1{print $4}' | rev | cut -c 3- | rev)
-max=$(acpi | awk 'NR==1{print $4}')
+battzero=$(acpi | awk 'NR==1{print $4}' | rev | cut -c 3- | rev)
+battnum=1
 
-unknownstate=$()
+if (( battzero == 0 ));
+then
+        battnum=2
+fi
+
+char=$(acpi | awk 'NR=='${battnum}'{print $3}' | rev | cut -c 2- | rev)
+lefc=$(acpi | awk 'NR=='${battnum}'{print $5}' | rev | cut -c 7- | rev)
+left=$(acpi | awk 'NR=='${battnum}'{print $5}' | rev | cut -c 4- | rev)
+batt=$(acpi | awk 'NR=='${battnum}'{print $4}' | rev | cut -c 3- | rev)
+max=$(acpi | awk 'NR=='${battnum}'{print $4}')
+
+#unknownstate=$()
 
 if [ "$max" = "100%" ];
 then
@@ -55,7 +63,7 @@ then
                 echo " ${batt}%"
         fi
 
-elif (( batt < 40 && batt >= 15 ));
+elif (( batt < 40 && batt >= 10 ));
 then
         if [[ $lefc =~ ^[0-9]+$ ]];
         then
@@ -64,7 +72,7 @@ then
                 echo " ${batt}%"
         fi
 
-elif (( batt < 15 ));
+elif (( batt < 10 ));
 then
         if [[ $lefc =~ ^[0-9]+$ ]];
         then

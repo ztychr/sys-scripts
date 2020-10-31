@@ -6,7 +6,7 @@ if [[ -d "$proton" ]];
 then
 	echo ""
 else
-	notify-send "No VPN" "Connect me please." -i file:///usr/share/icons/BlackoutIcons/status/scalable/nm-secure-lock.svg
+	notify-send "No VPN." "Connect me please." -i file:///home/ztychr/Pictures/Icons/nm-vpn-standalone-lock.svg
 
 fi
 
